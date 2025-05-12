@@ -15,7 +15,7 @@ public class Config {
     }
 
     public static class CreditsInfo {
-        public static final String MAIL = "elenansalnikova@yandex.ru";
+        public static final String MAIL = "e*@yandex.ru";
         public static final String PASSWORD = "zhoparu";
     }
 }
