@@ -6,12 +6,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.WebElement;
 
 import static config.Config.CreditsInfo.MAIL;
 import static config.Config.CreditsInfo.PASSWORD;
 import static pages.LoginPage.*;
 
+@Execution(ExecutionMode.CONCURRENT)
 public class LoginTest extends BaseTest{
 
 
@@ -32,6 +35,14 @@ public class LoginTest extends BaseTest{
         Assertions.assertEquals("Уже зарегистрированы?", waitAndGetText(signInTxt));
         Assertions.assertEquals("Вход", waitAndGetText(signInBtn));
 
+    }
+
+    @Test
+    @DisplayName("Отображение кнопки 'Войти'")
+    public void  test_5(){
+
+        homePage.open().clickToLogin();
+        Assertions.assertTrue(isElementPresent(signInButton), "Элемент с локатором " + signInButton + " не найден");
     }
 
 
