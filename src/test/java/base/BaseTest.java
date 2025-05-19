@@ -1,16 +1,15 @@
 package base;
 
 import common.CommonActions;
-import org.apache.tools.ant.taskdefs.Java;
 import org.junit.jupiter.api.AfterEach;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 import pages.HomePage;
 import pages.LoginPage;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static config.Config.CLEAR_COOKIES_AND_LOCAL_STORAGE;
@@ -29,6 +28,16 @@ public class BaseTest {
         return text;
     }
 
+    public boolean isElementPresent(By locator){
+        try{
+            WebElement wait = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(locator));
+            return true;
+        }
+        catch (TimeoutException e){
+            return false;
+        }
+    }
+
     @AfterEach
     public void clearCookiesAndLocalStorage(){
         if(CLEAR_COOKIES_AND_LOCAL_STORAGE)
@@ -40,7 +49,7 @@ public class BaseTest {
         }
     }
 
-    //костыль, закрывающий окна при отладке тестов
+    //закрытие окна браузера после выполнения теста
     @AfterEach
     public void quitBrowserAfterTest(){
         if (QUIT_BROWSER){
